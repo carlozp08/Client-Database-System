@@ -1,0 +1,75 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <limits>
+
+class Client {
+public:
+    std::string name;
+    std::string email;
+    std::string phone;
+};
+
+void displayMainMenu() {
+    std::cout << "Client Database System" << std::endl;
+    std::cout << "1. View Existing Clients" << std::endl;
+    std::cout << "2. Add New Client" << std::endl;
+    std::cout << "3. Exit" << std::endl;
+}
+
+void displayClientInformation(const std::vector<Client>& clients) {
+    std::cout << "Existing Clients:" << std::endl;
+    for (const auto& client : clients) {
+        std::cout << "Name: " << client.name << ", Email: " << client.email << ", Phone: " << client.phone << std::endl;
+    }
+}
+
+void addNewClient(std::vector<Client>& clients) {
+    std::string name, email, phone;
+    Client newClient;
+
+    std::cout << "Enter client name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Enter client email: ";
+    std::getline(std::cin, email);
+
+    std::cout << "Enter client phone: ";
+    std::getline(std::cin, phone);
+
+    newClient.name = name;
+    newClient.email = email;
+    newClient.phone = phone;
+    clients.push_back(newClient);
+
+    std::cout << "Client information saved." << std::endl;
+}
+
+int main() {
+    std::vector<Client> clients;
+    int choice = 0;
+
+    while (choice != 3) {
+        displayMainMenu();
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        switch (choice) {
+            case 1:
+                displayClientInformation(clients);
+                break;
+            case 2:
+                addNewClient(clients);
+                break;
+            case 3:
+                std::cout << "Exiting..." << std::endl;
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again." << std::endl;
+        }
+    }
+
+    return 0;
+}
+
